@@ -52,11 +52,12 @@ $bunny = 4;
 $goose = 2;
 $bunCount = 16;
 $goosecount = 0;
+echo "Сколько гусеи и кроликов может при общем кол-ве лап 64 <br>";
 while ($bunCount > 1){
-    if (($bunCount * $bunny) + ($goosecount * $goose) == 64){
+    if (($bunCount * $bunny) + ($goosecount * $goose) === 64){
         echo "Кроликов: $bunCount Гусей: $goosecount <br>";
     }
     $bunCount--;
-    $goosecount++;
+    $goosecount += 2;
 }
 ?>
