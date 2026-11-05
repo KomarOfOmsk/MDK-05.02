@@ -132,12 +132,17 @@ for ($j = 0; $j < count($arr); $j++){
     'dog'       => 'собака'
     ];
     $searchWord = 'пятница';
-    $engKey = array_search($searchWord, $dictionary);
-    if ($engKey !== false) {
-        echo "$searchWord - $engKey";
-    } else {
-        echo "$searchWord - В словаре нет такого слова";
-    }   
+    // $engKey = array_search($searchWord, $dictionary);
+    // if ($engKey !== false) {
+    //     echo "$searchWord - $engKey";
+    // } else {
+    //     echo "$searchWord - В словаре нет такого слова";
+    // } 
+    foreach ($dictionary as $eng => $rus) {
+        if ($rus == $searchWord){
+            echo "$searchWord - $eng";
+        }
+    }  
 ?>
 <h2>Задание 3</h2>
 <?php
@@ -153,19 +158,27 @@ for ($j = 0; $j < count($arr); $j++){
     'cat'       => 'кот',
     'dog'       => 'собака'
     ];
-    $searchWord = 'cat'; // Можно указать 'собака', 'cat' или 'тестирование'
+    $searchWord = 'dog'; // Можно указать 'собака', 'cat' или 'тестирование'
 
-    if (isset($dictionary[$searchWord])) {
-    // Если слово найдено в ключах (английское)
-        echo "{$searchWord} - " . $dictionary[$searchWord];
-    } else {
-    // Иначе ищем в значениях (русское)
-        $engKey = array_search($searchWord, $dictionary);
+    // if (isset($dictionary[$searchWord])) {
+    // // Если слово найдено в ключах (английское)
+    //     echo "$searchWord - " . $dictionary[$searchWord];
+    // } else {
+    // // Иначе ищем в значениях (русское)
+    //     $engKey = array_search($searchWord, $dictionary);
     
-        if ($engKey !== false) {
-            echo "{$searchWord} - {$engKey}";
-        } else {
-        echo "{$searchWord} - В словаре нет такого слова";
+    //     if ($engKey !== false) {
+    //         echo "$searchWord - $engKey";
+    //     } else {
+    //     echo "$searchWord - В словаре нет такого слова";
+    //     }
+    // }
+    foreach ($dictionary as $eng => $rus){
+        if ($rus == $searchWord){
+            echo "$searchWord - $eng";
+        }
+        else if ($eng == $searchWord){
+            echo "$searchWord - $rus";
         }
     }
 ?>
@@ -176,23 +189,20 @@ for ($j = 0; $j < count($arr); $j++){
 <h2>Задание 5</h2>
 <?php
     $string = "banana";
-    $charCount = [];
+    echo "$string <br>";
+    $result = [];
 
-    // Разбиваем строку на массив символов (работает и с UTF-8/кириллицей)
-    $chars = mb_str_split($string);
+    for ($i = 0; isset($string[$i]); $i++) {
+    $char = $string[$i];
 
-    foreach ($chars as $char) {
-        if (isset($charCount[$char])) {
-            $charCount[$char]++; // Если символ уже есть, увеличиваем счетчик
-        } else {
-            $charCount[$char] = 1; // Если символа нет, инициализируем единицей
-        }
+    // Проверяем, встречался ли символ раньше
+    if (isset($result[$char])) {
+        $result[$char]++;
+    } else {
+        $result[$char] = 1;
     }
-
-    // Вывод результата в требуемом формате
-    foreach ($charCount as $char => $count) {
-        echo "'{$char}' => {$count}<br>\n";
     }
+    print_r($result);
 ?>
 <h2>Задание 6</h2>
 <?php
@@ -208,30 +218,133 @@ for ($j = 0; $j < count($arr); $j++){
     'cat'       => 'кот',
     'dog'       => 'собака'
     ];
-    $flippedDictionary = array_flip($dictionary);
+    echo "
+    'monday'    => 'понедельник',
+    'tuesday'   => 'вторник',
+    'wednesday' => 'среда',
+    'thursday'  => 'четверг',
+    'friday'    => 'пятница',
+    'saturday'  => 'суббота',
+    'sunday'    => 'воскресенье',
+    'apple'     => 'яблоко',
+    'cat'       => 'кот',
+    'dog'       => 'собака'
+    <br>";
+    $flip = [];
+
+    foreach ($dictionary as $eng => $rus){
+        $flip[$rus] = $eng;
+    }
 
 // Выводим измененный массив
-    print_r($flippedDictionary);
+    print_r($flip);
 ?>
 <h2>Задание 7</h2>
 <?php
     $words = ['кот', 'дом', 'слон', 'лес', 'мышь', 'дерево', 'окно'];
-    $groupedWords = [];
+    $result = [];
 
     foreach ($words as $word) {
-        // Определяем длину слова
-        $length = mb_strlen($word);
     
-        if (isset($groupedWords[$length])) {
-            // Если ключ-длина уже существует, добавляем слово через пробел
-            $groupedWords[$length] .= ' ' . $word;
-        } else {
-            // Если такого ключа еще нет, создаем его
-            $groupedWords[$length] = $word;
-        }
+    // 1. Считаем длину текущего слова вручную без функции strlen()
+    $length = 0;
+    for ($i = 0; isset($word[$i]); $i++) {
+        $length++;
+    }
+    $length /= 2;
+    
+    // Если длина слова равна 0 (пустая строка), пропускаем его
+    if ($length === 0) {
+        continue;
+    }
+
+    // 2. Добавляем слово в ассоциативный массив
+    if (isset($result[$length])) {
+        // Если ключ с такой длиной уже есть, приклеиваем пробел и новое слово
+        $result[$length] .= ' ' . $word;
+    } else {
+        // Если такой длины еще не было, просто записываем слово
+        $result[$length] = $word;
+    }
     }
 
     // Выводим полученный ассоциативный массив
-    print_r($groupedWords);
+    print_r($result);
 ?>
 <h2>Многомерные массивы</h2>
+<h2>Задание 1</h2>
+<?php
+$twoDim = [[1,2,3,4],[5,6,7,8],[9,10,11,12]];
+for ($i = 0; $i < 3; $i++){
+    for($j = 0; $j < 4; $j++){
+        echo $twoDim[$i][$j] , " ";
+    }
+    echo "<br>";
+}
+?>
+<h2>Задание 2</h2>
+<?php
+    $matrix = [];
+    $currentNumber = 10;
+    $rows = 9;
+    $cols = 10;
+
+    for ($i = 0; $i < $rows; $i++) {
+        $row = [];
+        for ($j = 0; $j < $cols; $j++) {
+            $row[] = $currentNumber * $currentNumber;
+            $currentNumber++;
+        }
+        $matrix[] = $row;
+    }
+
+// Если выводите в браузере, раскомментируйте строку ниже для сохранения форматирования:
+// echo "<pre>";
+
+// 2. Выводим массив в виде текстовой таблицы
+    foreach ($matrix as $row) {
+        foreach ($row as $value) {
+            // str_pad дополняет каждое число пробелами до 5 символов для ровных колонок
+            echo $value , " ";
+        }
+        echo "<br>"; // переход на новую строку
+    } 
+
+?>
+<h2>Задание 3</h2>
+<?php
+$multDim = [[1,5,7,9],[11,0,4,2],[77,1,3,8],[9,5,2,6],[4,9,1,3]];
+$max = $multDim[0][0];
+$min = $multDim[0][0];
+for ($i=0; $i < 5; $i++){
+    for ($j=0; $j < 4; $j++){
+        if ($multDim[$i][$j] > $max){
+            $max = $multDim[$i][$j];
+        }
+        else if ($multDim[$i][$j] < $min){
+            $min = $multDim[$i][$j];
+        }
+    }
+}
+echo "Max - $max и Min - $min";
+?>
+<h2>Задание 4</h2>
+<?php
+
+?>
+<h2>Задание 5</h2>
+<?php
+
+?>
+<h2>Задание 6</h2>
+<?php
+
+?>
+<h2>Задание 7</h2>
+<?php
+
+?>
+<h2>Задание 8</h2>
+<?php
+
+?>
