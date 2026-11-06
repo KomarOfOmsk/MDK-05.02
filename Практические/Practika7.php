@@ -132,17 +132,18 @@ for ($j = 0; $j < count($arr); $j++){
     'dog'       => 'собака'
     ];
     $searchWord = 'пятница';
-    // $engKey = array_search($searchWord, $dictionary);
-    // if ($engKey !== false) {
-    //     echo "$searchWord - $engKey";
-    // } else {
-    //     echo "$searchWord - В словаре нет такого слова";
-    // } 
+    $isfound = false;
+
     foreach ($dictionary as $eng => $rus) {
         if ($rus == $searchWord){
             echo "$searchWord - $eng";
+            $isfound = true;
+            break;
         }
-    }  
+    }
+    if (!$isfound){
+        echo "$searchWord - В словаре нет такого слова";
+    }
 ?>
 <h2>Задание 3</h2>
 <?php
@@ -158,28 +159,22 @@ for ($j = 0; $j < count($arr); $j++){
     'cat'       => 'кот',
     'dog'       => 'собака'
     ];
-    $searchWord = 'dog'; // Можно указать 'собака', 'cat' или 'тестирование'
 
-    // if (isset($dictionary[$searchWord])) {
-    // // Если слово найдено в ключах (английское)
-    //     echo "$searchWord - " . $dictionary[$searchWord];
-    // } else {
-    // // Иначе ищем в значениях (русское)
-    //     $engKey = array_search($searchWord, $dictionary);
-    
-    //     if ($engKey !== false) {
-    //         echo "$searchWord - $engKey";
-    //     } else {
-    //     echo "$searchWord - В словаре нет такого слова";
-    //     }
-    // }
+    $searchWord = 'dog'; // Можно указать 'собака', 'cat' или 'тестирование'
+    $isfound = false;
+
     foreach ($dictionary as $eng => $rus){
         if ($rus == $searchWord){
             echo "$searchWord - $eng";
+            $isfound = true;
         }
         else if ($eng == $searchWord){
             echo "$searchWord - $rus";
+            $isfound = true;
         }
+    }
+    if (!$isfound){
+        echo "$searchWord - В словаре нет такого слова";
     }
 ?>
 <h2>Задание 4</h2>
@@ -195,7 +190,6 @@ for ($j = 0; $j < count($arr); $j++){
     for ($i = 0; isset($string[$i]); $i++) {
     $char = $string[$i];
 
-    // Проверяем, встречался ли символ раньше
     if (isset($result[$char])) {
         $result[$char]++;
     } else {
@@ -236,7 +230,6 @@ for ($j = 0; $j < count($arr); $j++){
         $flip[$rus] = $eng;
     }
 
-// Выводим измененный массив
     print_r($flip);
 ?>
 <h2>Задание 7</h2>
@@ -246,29 +239,24 @@ for ($j = 0; $j < count($arr); $j++){
 
     foreach ($words as $word) {
     
-    // 1. Считаем длину текущего слова вручную без функции strlen()
     $length = 0;
     for ($i = 0; isset($word[$i]); $i++) {
         $length++;
     }
     $length /= 2;
     
-    // Если длина слова равна 0 (пустая строка), пропускаем его
     if ($length === 0) {
         continue;
     }
 
-    // 2. Добавляем слово в ассоциативный массив
     if (isset($result[$length])) {
-        // Если ключ с такой длиной уже есть, приклеиваем пробел и новое слово
         $result[$length] .= ' ' . $word;
     } else {
-        // Если такой длины еще не было, просто записываем слово
         $result[$length] = $word;
     }
     }
 
-    // Выводим полученный ассоциативный массив
+
     print_r($result);
 ?>
 <h2>Многомерные массивы</h2>
@@ -298,16 +286,11 @@ for ($i = 0; $i < 3; $i++){
         $matrix[] = $row;
     }
 
-// Если выводите в браузере, раскомментируйте строку ниже для сохранения форматирования:
-// echo "<pre>";
-
-// 2. Выводим массив в виде текстовой таблицы
     foreach ($matrix as $row) {
         foreach ($row as $value) {
-            // str_pad дополняет каждое число пробелами до 5 символов для ровных колонок
             echo $value , " ";
         }
-        echo "<br>"; // переход на новую строку
+        echo "<br>"; 
     } 
 
 ?>
@@ -330,21 +313,164 @@ echo "Max - $max и Min - $min";
 ?>
 <h2>Задание 4</h2>
 <?php
+$matrix = [];
+$n = 2;
 
+for ($i = 0; $i < $n; $i++) {
+    $row = [];
+    $currentNumber = 0;
+    for ($j = 0; $j < $n; $j++) {
+        $row[] = $currentNumber;
+        if ($currentNumber < $n){
+            $currentNumber++;
+        }
+    }
+    $matrix[] = $row;
+}
+foreach ($matrix as $row) {
+        foreach ($row as $value) {
+            echo $value , " ";
+        }
+        echo "<br>"; 
+    }
 ?>
 <h2>Задание 5</h2>
 <?php
+$sportsStore = [
+    "Зимний спорт" => [
+        "Fisher" => "Беговые лыжи LS Combo",
+        "Burton" => "Сноуборд Instigator",
+        "Bauer" => "Хоккейные коньки Vapor"
+    ],
+    "Фитнес и йога" => [
+        "Torneo" => "Коврик для фитнеса",
+        "Рельеф" => "Набор фитнес-резинок"
+    ],
+    "Единоборства" => [
+        "Everlast" => "Боксёрские перчатки Pro Style"
+    ],
+    "Водный спорт" => []
+];
 
+foreach ($sportsStore as $category => $products) {
+    echo "Категория: $category <br>";
+    
+    if (!$products) {
+        echo "  Здесь пока нет товаров <br>" ;
+    } else {
+        foreach ($products as $brand => $productName) {
+            echo "  - $brand: $productName <br>";
+        }
+    }
+}
+    
 ?>
 <h2>Задание 6</h2>
 <?php
+$sportsStore = [
+    "Зимний спорт" => [
+        "Fisher" => "Беговые лыжи LS Combo",
+        "Burton" => "Сноуборд Instigator",
+        "Bauer" => "Хоккейные коньки Vapor"
+    ],
+    "Фитнес и йога" => [
+        "Torneo" => "Коврик для фитнеса",
+        "Рельеф" => "Набор фитнес-резинок"
+    ],
+    "Единоборства" => [
+        "Everlast" => "Боксёрские перчатки Pro Style"
+    ],
+    "Водный спорт" => [] 
+];
 
+$newCategory = "Тренажерные веса";
+echo "Добавить новую категорию - $newCategory <br><br>";
+$sportsStore[$newCategory] = [];
+
+foreach ($sportsStore as $category => $products) {
+    echo "Категория: $category <br>";
+    
+    if (!$products) {
+        echo "  Здесь пока нет товаров <br>" ;
+    } else {
+        foreach ($products as $brand => $productName) {
+            echo "  - $brand: $productName <br>";
+        }
+    }
+}
 ?>
 <h2>Задание 7</h2>
 <?php
+$sportsStore = [
+    "Зимний спорт" => [
+        "Fisher" => "Беговые лыжи LS Combo",
+        "Burton" => "Сноуборд Instigator",
+        "Bauer" => "Хоккейные коньки Vapor"
+    ],
+    "Фитнес и йога" => [
+        "Torneo" => "Коврик для фитнеса",
+        "Рельеф" => "Набор фитнес-резинок"
+    ],
+    "Единоборства" => [
+        "Everlast" => "Боксёрские перчатки Pro Style"
+    ],
+    "Водный спорт" => [],
+    "Тренажерные веса" => []
+];
 
+$products = ["MB Barbell" => "Олимпийский гриф 20 кг"];
+$sportsStore["Тренажерные веса"] = $products;
+
+foreach ($sportsStore as $category => $products) {
+    echo "Категория: $category <br>";
+    
+    if (!$products) {
+        echo "  Здесь пока нет товаров <br>" ;
+    } else {
+        foreach ($products as $brand => $productName) {
+            echo "  - $brand: $productName <br>";
+        }
+    }
+}
 ?>
 <h2>Задание 8</h2>
 <?php
+$sportsStore = [
+    "Зимний спорт" => [
+        "Fisher" => "Беговые лыжи LS Combo",
+        "Burton" => "Сноуборд Instigator",
+        "Bauer" => "Хоккейные коньки Vapor"
+    ],
+    "Фитнес и йога" => [
+        "Torneo" => "Коврик для фитнеса",
+        "Рельеф" => "Набор фитнес-резинок"
+    ],
+    "Единоборства" => [
+        "Everlast" => "Боксёрские перчатки Pro Style"
+    ],
+    "Водный спорт" => [],
+    "Тренажерные веса" => [
+        "MB Barbell" => "Олимпийский гриф 20 кг"
+    ]
+];
+$category = "Водный спорт";
+$products = ["Stern" => "ласты"];
+if (isset($sportsStore[$category])){
+    $sportsStore[$category] += $products;
+}
+else{
+    $sportsStore[$category] = $products;
+}
 
+foreach ($sportsStore as $category => $products) {
+    echo "Категория: $category <br>";
+    
+    if (!$products) {
+        echo "  Здесь пока нет товаров <br>" ;
+    } else {
+        foreach ($products as $brand => $productName) {
+            echo "  - $brand: $productName <br>";
+        }
+    }
+}
 ?>
