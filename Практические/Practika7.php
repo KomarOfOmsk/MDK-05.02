@@ -146,35 +146,43 @@ for ($j = 0; $j < count($arr); $j++){
     }
 ?>
 <h2>Задание 3</h2>
+
+<form action="" method="POST">
+    <input type="text" name="searchWord" placeholder="Введите слово" required>
+    <button type="submit">Перевести</button>
+</form>
+
 <?php
-    $dictionary = [
-    'monday'    => 'понедельник',
-    'tuesday'   => 'вторник',
-    'wednesday' => 'среда',
-    'thursday'  => 'четверг',
-    'friday'    => 'пятница',
-    'saturday'  => 'суббота',
-    'sunday'    => 'воскресенье',
-    'apple'     => 'яблоко',
-    'cat'       => 'кот',
-    'dog'       => 'собака'
-    ];
+    if (isset($_POST['searchWord'])) {
+        $dictionary = [
+        'monday'    => 'понедельник',
+        'tuesday'   => 'вторник',
+        'wednesday' => 'среда',
+        'thursday'  => 'четверг',
+        'friday'    => 'пятница',
+        'saturday'  => 'суббота',
+        'sunday'    => 'воскресенье',
+        'apple'     => 'яблоко',
+        'cat'       => 'кот',
+        'dog'       => 'собака'
+        ];
 
-    $searchWord = 'dog'; // Можно указать 'собака', 'cat' или 'тестирование'
-    $isfound = false;
+        $searchWord = $_POST['searchWord']; 
+        $isfound = false;
 
-    foreach ($dictionary as $eng => $rus){
-        if ($rus == $searchWord){
-            echo "$searchWord - $eng";
-            $isfound = true;
+        foreach ($dictionary as $eng => $rus){
+            if ($rus == $searchWord){
+                echo "$searchWord - $eng";
+                $isfound = true;
+            }
+            else if ($eng == $searchWord){
+                echo "$searchWord - $rus";
+                $isfound = true;
+            }
         }
-        else if ($eng == $searchWord){
-            echo "$searchWord - $rus";
-            $isfound = true;
+        if (!$isfound){
+            echo "$searchWord - В словаре нет такого слова";
         }
-    }
-    if (!$isfound){
-        echo "$searchWord - В словаре нет такого слова";
     }
 ?>
 <h2>Задание 4</h2>
