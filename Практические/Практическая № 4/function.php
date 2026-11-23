@@ -107,9 +107,16 @@ toString($arr);
 ?>
 <h2>Задание 7</h2>
 <?php
-function lengthSumm(){
-    
+function lengthSumm(string ...$strings){
+    $totalLength = 0;
+
+    foreach ($strings as $str) {
+        $totalLength += mb_strlen($str);
+    }
+    echo "Общая длина строк: $totalLength";
 }
+echo "окунь гусь рак";
+lengthSumm("окунь", "гусь", "рак");
 ?>
 <h2>Задание 8</h2>
 <?php
