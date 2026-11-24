@@ -147,6 +147,40 @@ for ($j = 0; $j < count($arr); $j++){
 ?>
 <h2>Задание 3</h2>
 
+<?php
+    if (isset($_POST['searchWord'])) {
+        $dictionary = [
+        'monday'    => 'понедельник',
+        'tuesday'   => 'вторник',
+        'wednesday' => 'среда',
+        'thursday'  => 'четверг',
+        'friday'    => 'пятница',
+        'saturday'  => 'суббота',
+        'sunday'    => 'воскресенье',
+        'apple'     => 'яблоко',
+        'cat'       => 'кот',
+        'dog'       => 'собака'
+        ];
+
+        $searchWord = "apple"; 
+        $isfound = false;
+
+        foreach ($dictionary as $eng => $rus){
+            if ($rus == $searchWord){
+                echo "$searchWord - $eng";
+                $isfound = true;
+            }
+            else if ($eng == $searchWord){
+                echo "$searchWord - $rus";
+                $isfound = true;
+            }
+        }
+        if (!$isfound){
+            echo "$searchWord - В словаре нет такого слова";
+        }
+    }
+?>
+<h2>Задание 4</h2>
 <form action="" method="POST">
     <input type="text" name="searchWord" placeholder="Введите слово" required>
     <button type="submit">Перевести</button>
@@ -184,10 +218,6 @@ for ($j = 0; $j < count($arr); $j++){
             echo "$searchWord - В словаре нет такого слова";
         }
     }
-?>
-<h2>Задание 4</h2>
-<?php
-
 ?>
 <h2>Задание 5</h2>
 <?php
@@ -322,25 +352,25 @@ echo "Max - $max и Min - $min";
 <h2>Задание 4</h2>
 <?php
 $matrix = [];
-$n = 2;
+$n = 4;
 
 for ($i = 0; $i < $n; $i++) {
-    $row = [];
-    $currentNumber = 0;
     for ($j = 0; $j < $n; $j++) {
-        $row[] = $currentNumber;
-        if ($currentNumber < $n){
-            $currentNumber++;
+        
+        // Вычисляем разницу без функции abs()
+        if ($i > $j) {
+            $matrix[$i][$j] = $i - $j;
+        } else {
+            $matrix[$i][$j] = $j - $i;
         }
+        
+        // Выводим элемент и пробел сразу в этом же цикле
+        echo $matrix[$i][$j] . ' ';
     }
-    $matrix[] = $row;
+    
+    // Переход на новую строку после завершения ряда
+    echo "<br>";
 }
-foreach ($matrix as $row) {
-        foreach ($row as $value) {
-            echo $value , " ";
-        }
-        echo "<br>"; 
-    }
 ?>
 <h2>Задание 5</h2>
 <?php
