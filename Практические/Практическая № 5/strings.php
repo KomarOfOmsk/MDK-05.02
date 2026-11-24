@@ -50,7 +50,7 @@ for ($i = 0; $i < strlen($str); $i++) {
         if ($word != "") {
             $len = strlen($word);
             if ($word[0] == $word[$len - 1]) {
-                echo $word . "\n";
+                echo $word . "<br>";
             }
             $word = ""; // Очищаем для следующего слова
         }
@@ -160,7 +160,7 @@ for ($i = 0; $i < strlen($str); $i++) {
     }
 }
 
-echo "Самое короткое слово: $minLen\n";
+echo "Самое короткое слово: $minLen<br>";
 echo "Самое длинное слово: $maxLen";
 ?>
 <h2>Задание 8</h2>
