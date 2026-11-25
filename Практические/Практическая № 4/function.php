@@ -3,11 +3,11 @@
 <?php
 $r = 5;
 echo "$r - радиус <br>";
-function circle($radius){
+function circleLength($radius){
     $c = 2*3.14*$radius;
     echo "Длина окружности - $c";
 }
-circle($r);
+circleLength($r);
 ?>
 <h2>Задание 2</h2>
 <form action="" method="POST">
@@ -60,11 +60,12 @@ if (isset($_POST['number'])){
 <?php
 function getDividers($n){
     $dividers = [];
-    for ($i = 1; $i <= $n; $i++) {
+    for ($i = 1; $i <= $n/2; $i++) {
         if ($n % $i === 0) {
             $dividers[] = $i;
         }
     }
+    $dividers[] = $n;
     return $dividers;
 }
 if (isset($_POST['numberD'])){
